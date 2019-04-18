@@ -5,14 +5,14 @@ import { Army } from "../models/army";
 
 let instance = null;
 
-export class Fabric {
+export class Factory {
   constructor() {
     instance = instance || this;
     return instance;
   }
 
   static getInstance() {
-    return new Fabric();
+    return new Factory();
   }
 
   createSoldier(data) {

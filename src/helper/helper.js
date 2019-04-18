@@ -1,20 +1,20 @@
-function random(min, max) {
+export function random(min, max) {
   return Math.floor(min + Math.random() * (max + 1) - min);
 }
 
-function gavg(operators) {
+export function gavg(operators) {
   let sum = 0;
 
   operators.forEach(e => {
     sum += e.attckSaccese();
   });
 
-  result = Math.sqrt(sum / operators.length);
+  let result = Math.sqrt(sum / operators.length);
 
   return result;
 }
 
-function sum(operators) {
+export function sum(operators) {
   let sum = 0;
 
   operators.forEach(e => {

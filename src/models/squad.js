@@ -1,14 +1,18 @@
 import { BaseUnit } from "./baseUnit";
+import "../helper/helper.js";
 
 export class Squad extends BaseUnit {
-  constructor(units) {
+  units = [];
+
+  constructor(units, type) {
     super();
     this.units = units;
+    // this.type = type;
   }
 
   makeDamage() {} //number
 
-  attckSaccese() {} //number
+  attackSuccess() {} //number
 
   damageRecivere() {} //number
 

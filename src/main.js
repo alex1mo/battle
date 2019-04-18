@@ -1,13 +1,15 @@
 import { Battle } from "./core/battle";
+import { Factory } from "./factory/factory";
 import data from "../data/data.json";
-import { Fabric } from "./fabrics/fabric";
-import "./helper/helper.js";
 
 export class Application {
   async init() {
-    let fabric = Fabric.getInstance();
+    let factory = Factory.getInstance();
+    let armies = factory.createArmies(data.armies);
 
-    const battle = new Battle();
+    console.log(armies);
+
+    const battle = new Battle(armies);
 
     battle.start();
   }
