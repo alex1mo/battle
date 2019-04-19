@@ -36,7 +36,9 @@ export class Factory {
   createVehicle(data) {
     let { health, recharge, operators } = data;
     let check = health && recharge && operators && true;
-    let vehicle = check && new Vehicle(health, recharge, operators);
+    let soldiers = operators && this.createSoldiers(operators);
+    let vehicle =
+      check && new Vehicle(health, recharge, this.createSoldiers(soldiers));
     if (vehicle) {
       return vehicle;
     }
@@ -57,12 +59,12 @@ export class Factory {
       case "vehicles":
         let vehicles = units && this.createVehicles(units);
         if (vehicles) {
-          return new Squad(vehicles);
+          return new Squad(type, vehicles);
         }
       case "soldiers":
         let soldiers = units && this.createSoldiers(units);
         if (soldiers) {
-          return new Squad(soldiers);
+          return new Squad(type, soldiers);
         }
     }
   }

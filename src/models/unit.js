@@ -1,20 +1,29 @@
 import { BaseUnit } from "./baseUnit";
 
 export class Unit extends BaseUnit {
-  constructor(health, recharge, power) {
+  constructor(health, recharge) {
     super();
     this.health = health;
     this.recharge = recharge;
-    // this.power = power
+    this.isRecharge = true;
+    this.time = 0;
   }
 
-  makeDamage() {} //number
+  makeDamage() {
+    return 0.05;
+  } //number
 
-  attackSuccess() {} //number
+  attackSuccess() {
+    return 0.5 * (1 + this.health / 100);
+  } //number
 
-  damageReceiver() {} //number
+  damageRecivere(d) {
+    this.health = this.health - d;
+  } //number
 
-  isAlive() {} //boolean
+  isAlive() {
+    return this.health > 0 && true;
+  } //boolean
 
   setRecharge() {} //number
 

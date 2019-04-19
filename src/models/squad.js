@@ -1,20 +1,59 @@
 import { BaseUnit } from "./baseUnit";
-import "../helper/helper.js";
+import { gavg, sum } from "../helper/helper";
 
 export class Squad extends BaseUnit {
-  units = [];
-
-  constructor(units, type) {
+  constructor(type, units) {
     super();
-    this.units = units;
-    // this.type = type;
+    this.type = type;
+    this._units = units;
   }
 
-  makeDamage() {} //number
+  makeDamage() {
+    let recharged = this.units.filter(e => e.isRecharge);
+    return sum(recharged.map(e => e.makeDamage())) + 10;
+  } //number
 
-  attackSuccess() {} //number
+  attackSuccess() {
+    let arrAttackSuccess = this.units.map(e => e.attackSuccess());
+    return gavg(arrAttackSuccess);
+  } //number
 
-  damageRecivere() {} //number
+  damageRecivere(d) {
+    let damage = d / this.units.length;
+    this.units.forEach(e => {
+      e.damageRecivere(damage);
+    });
+  } //number
 
-  isAlive() {}
+  isAlive() {
+    return this.units.some(e => e.isAlive());
+  }
+
+  getUnits() {
+    this.units = this.units.filter(e => {
+      return e.isAlive();
+    });
+  }
+
+  startRecharge() {
+    let recharged = this.units.filter(e => e.isRecharge);
+    recharged.forEach(e => {
+      e.startRecharge();
+    });
+  }
+
+  timeRecharge() {
+    let recharged = this.units.filter(e => !e.isRecharge);
+    recharged.forEach(e => {
+      e.timeRecharge();
+    });
+  }
+
+  get units() {
+    return this._units;
+  }
+
+  set units(v) {
+    this._units = v;
+  }
 }

@@ -4,6 +4,10 @@ import { random } from "../helper/helper.js";
 export class Soldier extends Unit {
   _experience = 0; //0-50 number
 
+  constructor(health, recharge) {
+    super(health, recharge);
+  }
+
   set experience(v) {
     v = v > 50 ? 50 : v;
     this._experience = v;
@@ -13,15 +17,31 @@ export class Soldier extends Unit {
     return this._experience;
   } ////number
 
-  attackSuccess() {
-    return (
-      (0.5 * (1 + this.health / 100) * random(50 + this.experience, 100)) / 100
-    );
-  } //number
-
   makeDamage() {
-    return 0.05 + this.experience / 100;
+    return super.makeDamage() + this.experience / 100;
   } //number
 
-  damageRecivere() {} //numeber
+  attackSuccess() {
+    return (super.attackSuccess() * random(50 + this.experience, 100)) / 100;
+  } //number
+
+  damageRecivere(d) {
+    this.health = this.health - d;
+  }
+
+  isAlive() {
+    return this.health > 0;
+  }
+
+  startRecharge() {
+    this.isRecharge = !this.isRecharge;
+    this.time = Date.now();
+  }
+
+  timeRecharge() {
+    let time = Date.now();
+    if (time - this.time < this.recharge) {
+      this.isRecharge = !this.isRecharge;
+    }
+  }
 }

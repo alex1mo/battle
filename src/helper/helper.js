@@ -2,23 +2,19 @@ export function random(min, max) {
   return Math.floor(min + Math.random() * (max + 1) - min);
 }
 
-export function gavg(operators) {
-  let sum = 0;
+export function gavg(arrValue) {
+  let _sum = sum(arrValue);
 
-  operators.forEach(e => {
-    sum += e.attckSaccese();
-  });
-
-  let result = Math.sqrt(sum / operators.length);
+  let result = Math.sqrt(_sum / arrValue.length);
 
   return result;
 }
 
-export function sum(operators) {
+export function sum(arrValue) {
   let sum = 0;
 
-  operators.forEach(e => {
-    sum += e.experience;
+  arrValue.forEach(e => {
+    sum += e;
   });
 
   return sum;

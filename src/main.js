@@ -7,8 +7,6 @@ export class Application {
     let factory = Factory.getInstance();
     let armies = factory.createArmies(data.armies);
 
-    console.log(armies);
-
     const battle = new Battle(armies);
 
     battle.start();
