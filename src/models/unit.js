@@ -18,22 +18,31 @@ export class Unit extends BaseUnit {
   } //number
 
   damageRecivere(d) {
-    this.health = this.health - d;
+    let damage = this.getHealth() - d;
+    this.setHealth(d);
   } //number
 
   isAlive() {
-    return this.health > 0 && true;
+    return this.health > 0;
   } //boolean
 
-  setRecharge() {} //number
+  startRecharge() {
+    this.isRecharge = !this.isRecharge;
+    this.time = Date.now();
+  }
 
-  isRecharge() {} //boolean
+  timeRecharge() {
+    let time = Date.now();
+    if (time - this.time > this.recharge) {
+      this.isRecharge = !this.isRecharge;
+    }
+  }
 
-  timeRecharge() {}
+  getHealth() {
+    return this.health;
+  } //number
 
-  startRecharge() {} //boolean
-
-  getHealth() {} //number
-
-  setHealth() {} //number
+  setHealth(v) {
+    this.health = v;
+  } //number
 }

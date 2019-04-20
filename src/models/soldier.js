@@ -28,24 +28,4 @@ export class Soldier extends Unit {
   attackSuccess() {
     return (super.attackSuccess() * random(50 + this.experience, 100)) / 100;
   } //number
-
-  damageRecivere(d) {
-    this.health = this.health - d;
-  }
-
-  isAlive() {
-    return this.health > 0;
-  }
-
-  startRecharge() {
-    this.isRecharge = !this.isRecharge;
-    this.time = Date.now();
-  }
-
-  timeRecharge() {
-    let time = Date.now();
-    if (time - this.time < this.recharge) {
-      this.isRecharge = !this.isRecharge;
-    }
-  }
 }

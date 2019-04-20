@@ -19,34 +19,18 @@ export class Vehicle extends Unit {
   }
 
   damageRecivere(d) {
-    this.health = this.health - d * 0.6;
+    super.damageRecivere(d * 0.6);
     let randomOper = random(0, this.operators.length - 1);
     this.operators.forEach((e, i) => {
       if (randomOper === i) {
-        e.health = e.health - d * 0.2;
+        e.damageRecivere(d * 0.2);
       } else {
-        e.health = e.health - d * 0.1;
+        e.damageRecivere(d * 0.1);
       }
     });
   }
 
-  startRecharge() {
-    this.isRecharge = !this.isRecharge;
-    this.time = Date.now();
-  }
-
-  timeRecharge() {
-    let time = Date.now();
-    if (time - this.time > this.recharge) {
-      this.isRecharge = !this.isRecharge;
-    }
-  }
-
   upExperience() {
     this.operators.forEach(e => e.upExperience());
-  }
-
-  isAlive() {
-    return this.health > 0;
   }
 }
