@@ -42,6 +42,10 @@ export class Vehicle extends Unit {
     }
   }
 
+  upExperience() {
+    this.operators.forEach(e => e.upExperience());
+  }
+
   isAlive() {
     return this.health > 0;
   }

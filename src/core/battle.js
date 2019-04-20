@@ -11,21 +11,18 @@ export class Battle {
     while (battle) {
       let armies = this.armies;
       let attackArmy = armies[random(0, armies.length - 1)];
-      let attackSquad =
-        attackArmy.squads[random(0, attackArmy.squads.length - 1)];
 
-      while (true) {
-        var defArmy = armies[random(0, armies.length - 1)];
-        if (attackArmy !== defArmy) {
-          break;
-        }
-      }
-      let defSquad = defArmy.squads[random(0, defArmy.squads.length - 1)];
+      let strategy = attackArmy.getTargetArmy(armies);
+
+      let { attackSquad, defArmy, defSquad } = strategy;
 
       let attackSuccess = attackSquad.attackSuccess();
       let defSuccess = defSquad.attackSuccess();
-      console.log(attackArmy.name + " атакует " + defArmy.name);
       if (attackSuccess > defSuccess) {
+        let dataBattle = {
+          squad: defArmy.squads.length,
+          armies: armies.length
+        };
         attackSquad.timeRecharge();
         let damage = attackSquad.makeDamage();
         attackSquad.startRecharge();
@@ -33,10 +30,27 @@ export class Battle {
         defSquad.getUnits();
         defArmy.getSquads();
         this.getArmies();
+        attackSquad.upExperience();
+        if (
+          defArmy.squads.length < dataBattle.squad ||
+          this.armies.length < dataBattle.armies
+        ) {
+          console.log(attackArmy.name + " атакует " + defArmy.name);
+          if (defArmy.squads.length < dataBattle.squad) {
+            console.log(
+              "отряд противника уничтожен,осталось " + defArmy.squads.length
+            );
+          }
+          if (this.armies.length < dataBattle.armies) {
+            console.log(
+              "армия противника уничтожена,осталось " + this.armies.length
+            );
+          }
+          console.log("--------------------------------------");
+        }
       }
 
       if (this.armies.length === 1) {
-        console.log(this.armies[0]);
         console.log("победитель ------> " + this.armies[0].name);
         battle = !battle;
       }

@@ -10,7 +10,7 @@ export class Squad extends BaseUnit {
 
   makeDamage() {
     let recharged = this.units.filter(e => e.isRecharge);
-    return sum(recharged.map(e => e.makeDamage())) + 10;
+    return sum(recharged.map(e => e.makeDamage()));
   } //number
 
   attackSuccess() {
@@ -47,6 +47,10 @@ export class Squad extends BaseUnit {
     recharged.forEach(e => {
       e.timeRecharge();
     });
+  }
+
+  upExperience() {
+    this.units.forEach(e => e.upExperience());
   }
 
   get units() {

@@ -17,6 +17,10 @@ export class Soldier extends Unit {
     return this._experience;
   } ////number
 
+  upExperience() {
+    this.experience += 1;
+  }
+
   makeDamage() {
     return super.makeDamage() + this.experience / 100;
   } //number

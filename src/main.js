@@ -9,6 +9,10 @@ export class Application {
 
     const battle = new Battle(armies);
 
-    battle.start();
+    if (battle.armies.length > 2) {
+      battle.start();
+    } else {
+      console.log("участников битвы должно быть больше 1");
+    }
   }
 }

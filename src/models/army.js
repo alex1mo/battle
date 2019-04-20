@@ -1,3 +1,5 @@
+import { Strategy } from "../strategy/strategy";
+
 export class Army {
   constructor(name, strategy, squads) {
     this.name = name;
@@ -5,7 +7,16 @@ export class Army {
     this.squads = squads;
   }
 
-  getTargetArmy() {}
+  getTargetArmy(armies) {
+    switch (this.strategy) {
+      case "random":
+        return Strategy.random(armies, this);
+      case "weakest":
+        return Strategy.weakest(armies, this);
+      case "strongest":
+        return Strategy.strongest(armies, this);
+    }
+  }
 
   isAlive() {
     return this.squads.some(e => e.isAlive());
